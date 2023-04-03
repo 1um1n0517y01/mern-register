@@ -34,18 +34,6 @@ const userSchema = new Schema({
     minLength: [6, 'A user password can not have less than 6 characters'],
     select: false,
   },
-  passwordConfirm: {
-    type: String,
-    // This only works on save and create
-    validate: {
-      validator: function (el) {
-        return el === this.password;
-      },
-      message: 'Passwords are not the same',
-    },
-    required: [true, 'Please confirm your password.'],
-    minLength: [6, 'A user password can not have less than 6 characters'],
-  },
 });
 
 const User = mongoose.model('User', userSchema);

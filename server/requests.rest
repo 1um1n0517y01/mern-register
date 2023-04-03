@@ -9,8 +9,7 @@ Content-Type: application/json
     "firstName": "Milos",
     "lastName": "Ilic",
     "email": "milosilic1@gmail.com",
-    "password": "milos12345",
-    "passwordConfirm": "milos12345"
+    "password": "milos12345"
 }
 
 ###
