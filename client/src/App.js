@@ -1,9 +1,20 @@
-import { useState } from 'react';
-
-const API_BASE = 'http://localhost:5000';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import RegistrationForm from './components/RegistrationForm.tsx';
+import Home from './components/Home.tsx';
 
 function App() {
-  return <div className='App'></div>;
+  return (
+    <Router>
+      <div className='App'>
+        <div className='App'>
+          <Routes>
+            <Route exact path='/' element={<RegistrationForm />} />
+            <Route path='/home' element={<Home />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
+  );
 }
 
 export default App;
