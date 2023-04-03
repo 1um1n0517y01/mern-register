@@ -2,11 +2,15 @@ GET http://localhost:5000/todos
 
 ###
 
-POST http://localhost:5000/todo/new
+POST http://localhost:5000/register
 Content-Type: application/json
 
 {
-    "text": "Order pizza"
+    "firstName": "Milos",
+    "lastName": "Ilic",
+    "email": "milosilic@gmail.com",
+    "password": "milos12345",
+    "passwordConfirm": "milos12345"
 }
 
 ###
