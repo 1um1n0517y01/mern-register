@@ -30,11 +30,14 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onRegister }) => {
       setErrorMessage('Password must be at least 6 characters long');
     } else {
       try {
-        const response = await fetch('http://localhost:5000/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ firstName, lastName, email, password }),
-        });
+        const response = await fetch(
+          'https://mern-register-server.onrender.com/register',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ firstName, lastName, email, password }),
+          }
+        );
         if (response.status === 201) {
           setErrorMessage('');
           const data = await response.json();

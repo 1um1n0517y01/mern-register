@@ -21,7 +21,7 @@ const Home: React.FC = () => {
     }
 
     // Make an API request to retrieve the user's information
-    fetch('http://localhost:5000/home', {
+    fetch('https://mern-register-server.onrender.com/home', {
       headers: {
         Authorization: `Bearer ${Cookies.get('jwt')}`,
       },
