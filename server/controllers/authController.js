@@ -71,6 +71,7 @@ exports.logout = (req, res) => {
 exports.protect = catchAsync(async (req, res, next) => {
   // 1. Getting token and checking if it exists
   let token;
+
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
@@ -87,11 +88,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   const currentUser = await User.findById(decoded.id);
   if (!currentUser)
     return next('The user whom used this token no longer exists', 401);
-
-  // 4. Check if user changed password after the token was issued
-  if (currentUser.changePasswordAfter(decoded.iat)) {
-    return next('Recently changed password! Please log in again.', 401);
-  }
 
   // Grant access to protected route
   req.user = currentUser;

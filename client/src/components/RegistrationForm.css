@@ -48,10 +48,10 @@
   background-color: var(--light-alt);
 }
 
-.registration-form .error-message {
+.registration-form .error {
   color: #ff4d4d;
   font-size: 0.9rem;
-  margin-top: 0.5rem;
+  margin: 20px;
 }
 
 /* Home page styles */

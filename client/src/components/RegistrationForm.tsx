@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import './RegistrationForm.css';
 
 interface RegistrationFormProps {
@@ -11,13 +13,14 @@ interface RegistrationFormProps {
 }
 
 const RegistrationForm: React.FC<RegistrationFormProps> = ({ onRegister }) => {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!firstName || !lastName || !email || !password) {
       setErrorMessage('Please fill in all fields');
@@ -26,8 +29,24 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onRegister }) => {
     } else if (password.length < 6) {
       setErrorMessage('Password must be at least 6 characters long');
     } else {
-      setErrorMessage('');
-      onRegister(firstName, lastName, email, password);
+      try {
+        const response = await fetch('http://localhost:5000/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ firstName, lastName, email, password }),
+        });
+        if (response.status === 201) {
+          setErrorMessage('');
+          const data = await response.json();
+          Cookies.set('jwt', data.token, { expires: 7 });
+          navigate('/home');
+          onRegister(firstName, lastName, email, password);
+        } else {
+          setErrorMessage('Registration failed. Please try again later.');
+        }
+      } catch (error) {
+        setErrorMessage('Registration failed. Please try again later.');
+      }
     }
   };
 

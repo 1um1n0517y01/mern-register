@@ -11,3 +11,9 @@ exports.createUser = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.home = async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  res.json(user);
+};
