@@ -4,6 +4,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
+const morgan = require('morgan');
 
 const userRoutes = require('./routes/userRoutes');
 
@@ -35,5 +36,11 @@ app.use(xss());
 app.use(cors());
 
 app.use('/', userRoutes);
+
+// Handling Unhandled Routes to Client Deploy Site
+app.all('*', (req, res, next) => {
+  const externalUrl = 'https://mern-register.netlify.app/';
+  res.redirect(externalUrl);
+});
 
 module.exports = app;
